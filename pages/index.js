@@ -23,8 +23,7 @@ function Home() {
                 <p>Carregando...</p>
             </div>
         )
-    }
-
+    };
 
     return (
         <div>
@@ -33,7 +32,9 @@ function Home() {
             <ul>
                 {repos.map((repo) => {
                     return (
-                        <li key={repo.id}>{repo.name}</li>
+                        <li key={repo.id}>
+                            <a href={repo.html_url} target="_blank">{repo.name}</a>
+                        </li>
                     )
                 })}
             </ul>
