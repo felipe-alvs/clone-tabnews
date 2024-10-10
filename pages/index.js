@@ -1,6 +1,43 @@
+import { useEffect, useState } from "react";
+
 function Home() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [repos, setRepos] = useState([]);
+
+    useEffect(() => {
+        fetch("https://api.github.com/users/felipe-alvs/repos", { method: "GET" })
+            .then((response) => response.json())
+            .then((response) => {
+                setRepos(response);
+
+                setIsLoading(false);
+            })
+            .catch((err) => {
+                alert(err);
+            })
+    }, [])
+
+    if (isLoading) {
+        return (
+            <div>
+                <p>Carregando...</p>
+            </div>
+        )
+    }
+
+
     return (
-        <h1>Alterando a mensagem aqui hehe</h1>
+        <div>
+            <h1>Meus repositórios</h1>
+
+            <ul>
+                {repos.map((repo) => {
+                    return (
+                        <li key={repo.id}>{repo.name}</li>
+                    )
+                })}
+            </ul>
+        </div>
     )
 }
 
